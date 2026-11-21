@@ -1,4 +1,3 @@
-
 # Paws & Bubbles Pet Grooming Manager
 
 # Customer names and their pets
@@ -13,11 +12,12 @@ customers = {
           "type": "Dog", "breed": "Corgi"}
 }
 
-# List storing completed grooming transactions
+
+# Completed grooming transactions
 appointments = []
 
 
-# This loads customer information from the CSV file.
+# Loads customer information from the CSV file
 def load_customers():
     with open("customers.csv", "r") as f:
         line_number = 0
@@ -39,7 +39,7 @@ def load_customers():
                 }
 
 
-# This saves customer information to the CSV file.
+# Saves customer information to the CSV file
 def save_customers():
     with open("customers.csv", "w") as f:
         f.write("customer_id,customer_name,pet_name,pet_type,pet_breed\n")
@@ -52,7 +52,7 @@ def save_customers():
             f.write(customers[customer_id]["breed"] + "\n")
 
 
-# This loads appointment transactions from the CSV file.
+# Loads appointment from the CSV file
 def load_appointments():
     with open("appointments.csv", "r") as f:
         line_number = 0
@@ -75,7 +75,7 @@ def load_appointments():
                 appointments.append(appointment)
 
 
-# This saves appointment transactions to the CSV file.
+# Saves appointment to the CSV file
 def save_appointments():
     with open("appointments.csv", "w") as f:
         f.write("date,customer_id,pet_name,service,price\n")
@@ -88,7 +88,7 @@ def save_appointments():
             f.write(str(appointment["price"]) + "\n")
 
 
-# This records a completed grooming service.
+# Records a completed grooming service
 def record_service():
     print("\n===== RECORD COMPLETED SERVICE =====")
 
@@ -149,7 +149,7 @@ def record_service():
     print("Appointments:", appointments)
 
 
-# This adds or updates customers.
+# Adds or updates customers
 def add_customer():
     print("\n===== ADD OR UPDATE CUSTOMER =====")
 
@@ -191,7 +191,7 @@ def add_customer():
             print("Customer information added successfully!")
 
 
-# This displays all customers and their pets.
+# Displays all customers and their pets
 def view_customers():
     print("\n===== CUSTOMER LIST =====")
 
@@ -204,7 +204,62 @@ def view_customers():
         print("Pet Breed:", customers[customer_id]["breed"])
 
 
-# This displays the menu.
+# This displays summary of grooming sales
+def sales_report():
+    print("\n===== PAWS & BUBBLES SALES REPORT =====")
+
+    if len(appointments) == 0:
+        print("No transactions recorded yet.")
+
+    else:
+        total_sales = 0
+        service_totals = {}
+        service_counts = {}
+
+        # Calculate total revenue and group 
+        for appointment in appointments:
+            total_sales = total_sales + appointment["price"]
+
+            service = appointment["service"]
+
+            if service in service_totals:
+                service_totals[service] = service_totals[service] + appointment["price"]
+                service_counts[service] = service_counts[service] + 1
+
+            else:
+                service_totals[service] = appointment["price"]
+                service_counts[service] = 1
+
+        # Calculate the number of appointments and average sale
+        number_of_appointments = len(appointments)
+        average_sale = total_sales / number_of_appointments
+
+        # Find the service that earned the most revenue
+        top_service = ""
+        highest_revenue = 0
+
+        for service in service_totals:
+            if service_totals[service] > highest_revenue:
+                highest_revenue = service_totals[service]
+                top_service = service
+
+        # Display the report
+        print("\nAppointments recorded:", number_of_appointments)
+        print("Total revenue: $", total_sales)
+        print("Average sale: $", average_sale)
+        print("Top service:", top_service)
+
+        # Display appointment counts and revenue
+        print("\n===== REVENUE BY SERVICE =====")
+
+        for service in service_totals:
+            print("-----------------------------")
+            print("Service:", service)
+            print("Appointments:", service_counts[service])
+            print("Revenue: $", service_totals[service])
+
+
+# Displays the menu
 def show_menu():
     print("\n===== PAWS & BUBBLES PET GROOMING =====")
     print("1. View customers and pets")
@@ -212,12 +267,12 @@ def show_menu():
     print("3. Schedule an appointment")
     print("4. View appointments")
     print("5. Record a completed service")
-    print("6. Sales report with charts")
-    print("7. Run 30-day simulation")
+    print("6. Sales report")
+    print("7. View charts")
     print("8. Save and exit")
 
 
-# This runs the main menu.
+# Runs the main menu
 def main():
     load_customers()
     load_appointments()
@@ -245,10 +300,10 @@ def main():
             record_service()
 
         elif choice == "6":
-            print("Coming soon!")
+            sales_report()
 
         elif choice == "7":
-            print("Coming soon!")
+            print("Charts are coming in Part 2!")
 
         elif choice == "8":
             save_customers()
