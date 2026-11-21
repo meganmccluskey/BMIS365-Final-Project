@@ -9,9 +9,9 @@ Which grooming services generate the most revenue, and how many appointments sho
 ## How to Run
 1. Download or clone the project from GitHub.
 2. Open the project folder in VS Code.
-3. Make sure the Python file and CSV files are saved in the same folder.
+3. Make sure all Python files and CSV files are saved in the same folder.
 4. Install matplotlib by running `pip install matplotlib` in the terminal.
-5. Run `Paws and Bubbles.py`.
+5. Run `main.py`.
 6. Choose an option from the menu.
 7. Select option 8 to save your information and exit.
 
@@ -36,12 +36,14 @@ Full Groom generates the most revenue, followed by Bath and Brush and Nail Trim.
 This chart shows how many grooming appointments were completed each day, helping the business owner understand daily appointment activity.
 
 ## Files
-- `Paws and Bubbles.py` - Main Python program containing the menu and program functions.
+- `main.py` - Displays the menu and runs the program.
+- `grooming.py` - Manages customer information and completed grooming transactions.
+- `reports.py` - Creates the sales report and charts.
 - `customers.csv` - Stores customer and pet information.
 - `appointments.csv` - Stores completed grooming service transactions.
 - `revenue_by_service.png` - Bar chart showing revenue by grooming service.
 - `appointments_by_day.png` - Line chart showing appointments by day.
-- `README.md` - Provides project information and instructions for running the program.
+- `README.md` - Provides project information and instructions.
 
 ## Author
 Megan McCluskey
