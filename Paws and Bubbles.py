@@ -1,5 +1,8 @@
 # Paws & Bubbles Pet Grooming Manager
 
+import matplotlib.pyplot as plt
+
+
 # Customer names and their pets
 customers = {
     101: {"name": "Ryland Grace", "pet": "Rocky",
@@ -52,7 +55,7 @@ def save_customers():
             f.write(customers[customer_id]["breed"] + "\n")
 
 
-# Loads appointment from the CSV file
+# Loads appointment transactions from the CSV file
 def load_appointments():
     with open("appointments.csv", "r") as f:
         line_number = 0
@@ -75,7 +78,7 @@ def load_appointments():
                 appointments.append(appointment)
 
 
-# Saves appointment to the CSV file
+# Saves appointment transactions to the CSV file
 def save_appointments():
     with open("appointments.csv", "w") as f:
         f.write("date,customer_id,pet_name,service,price\n")
@@ -204,7 +207,7 @@ def view_customers():
         print("Pet Breed:", customers[customer_id]["breed"])
 
 
-# This displays summary of grooming sales
+# Displays a summary of grooming sales
 def sales_report():
     print("\n===== PAWS & BUBBLES SALES REPORT =====")
 
@@ -216,7 +219,6 @@ def sales_report():
         service_totals = {}
         service_counts = {}
 
-        # Calculate total revenue and group 
         for appointment in appointments:
             total_sales = total_sales + appointment["price"]
 
@@ -230,11 +232,9 @@ def sales_report():
                 service_totals[service] = appointment["price"]
                 service_counts[service] = 1
 
-        # Calculate the number of appointments and average sale
         number_of_appointments = len(appointments)
         average_sale = total_sales / number_of_appointments
 
-        # Find the service that earned the most revenue
         top_service = ""
         highest_revenue = 0
 
@@ -243,13 +243,11 @@ def sales_report():
                 highest_revenue = service_totals[service]
                 top_service = service
 
-        # Display the report
         print("\nAppointments recorded:", number_of_appointments)
         print("Total revenue: $", total_sales)
         print("Average sale: $", average_sale)
         print("Top service:", top_service)
 
-        # Display appointment counts and revenue
         print("\n===== REVENUE BY SERVICE =====")
 
         for service in service_totals:
@@ -257,6 +255,74 @@ def sales_report():
             print("Service:", service)
             print("Appointments:", service_counts[service])
             print("Revenue: $", service_totals[service])
+
+
+# Creates charts showing grooming sales information
+def charts():
+    print("\n===== PAWS & BUBBLES CHARTS =====")
+
+    if len(appointments) == 0:
+        print("No transactions available to create charts.")
+
+    else:
+        service_totals = {}
+        daily_appointments = {}
+
+        # Group revenue by grooming service.
+        for appointment in appointments:
+            service = appointment["service"]
+
+            if service in service_totals:
+                service_totals[service] = service_totals[service] + appointment["price"]
+            else:
+                service_totals[service] = appointment["price"]
+
+        # Count appointments by date
+        for appointment in appointments:
+            date = appointment["date"]
+
+            if date in daily_appointments:
+                daily_appointments[date] = daily_appointments[date] + 1
+            else:
+                daily_appointments[date] = 1
+
+        # Create the bar chart
+        services = []
+        revenue = []
+
+        for service in service_totals:
+            services.append(service)
+            revenue.append(service_totals[service])
+
+        plt.figure()
+        plt.bar(services, revenue)
+        plt.title("Revenue by Grooming Service")
+        plt.xlabel("Grooming Service")
+        plt.ylabel("Revenue ($)")
+        plt.tight_layout()
+        plt.savefig("revenue_by_service.png")
+        plt.show()
+        plt.close()
+
+        # Create the line chart
+        dates = sorted(daily_appointments.keys())
+        appointment_counts = []
+
+        for date in dates:
+            appointment_counts.append(daily_appointments[date])
+
+        plt.figure()
+        plt.plot(dates, appointment_counts, marker="o")
+        plt.title("Appointments by Day")
+        plt.xlabel("Date")
+        plt.ylabel("Number of Appointments")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.savefig("appointments_by_day.png")
+        plt.show()
+        plt.close()
+
+        print("Charts saved successfully!")
 
 
 # Displays the menu
@@ -303,7 +369,7 @@ def main():
             sales_report()
 
         elif choice == "7":
-            print("Charts are coming in Part 2!")
+            charts()
 
         elif choice == "8":
             save_customers()

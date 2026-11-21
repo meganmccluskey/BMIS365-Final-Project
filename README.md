@@ -1,36 +1,47 @@
-Paws and Bubbles Pet Grooming Manager
+# Paws & Bubbles Pet Grooming Manager
 
-Business problem:
-    Paws & Bubbles is a small pet grooming business that needs a simple way to organize customer and pet information and keep track of completed grooming services.
+## Business Problem
+Paws & Bubbles is a small pet grooming business that needs a simple way to organize customer and pet information. The shop also needs help keep track of completed grooming services. This app helps the owner manage customers, pets, appointments, and grooming revenue.
 
-Business Question
-    Which grooming services generate the most revenue, and how many appointments should the business expect each week?
+## Business Question
+Which grooming services generate the most revenue, and how many appointments should the business expect each week?
 
-How to Run
-    Download or clone the project from GitHub.
-    Make sure the Python file and CSV files are saved in the same folder.
-    Open Paws and Bubbles.py in Visual Studio Code.
-    Run the Python program.
-    Follow the menu instructions in the terminal.
-    Select option 8 to save your information and exit.
+## How to Run
+1. Download or clone the project from GitHub.
+2. Open the project folder in VS Code.
+3. Make sure the Python file and CSV files are saved in the same folder.
+4. Install matplotlib by running `pip install matplotlib` in the terminal.
+5. Run `Paws and Bubbles.py`.
+6. Choose an option from the menu.
+7. Select option 8 to save your information and exit.
 
-Menu Options
-    View customers and pets
-    Add or update a customer
-    Schedule an appointment
-    View appointments
-    Record a completed service
-    Sales report with charts
-    Run 30-day simulation
-    Save and exit
+## Menu Options
+1. View customers and pets
+2. Add or update a customer
+3. Schedule an appointment
+4. View appointments
+5. Record a completed service
+6. Sales report
+7. View charts
+8. Save and exit
 
-    Menu options are still under development
+## Charts
 
-Files
-    Paws and Bubbles.py – Main Python program containing the menu and program functions.
-    customers.csv – Stores customer and pet information.
-    appointments.csv – Stores completed grooming service transactions.
-    README.md – Provides information about the project and instructions for running it.
+![Revenue by Grooming Service](revenue_by_service.png)
 
-Author
-    Megan McCluskey
+Full Groom generates the most revenue, followed by Bath and Brush and Nail Trim.
+
+![Appointments by Day](appointments_by_day.png)
+
+This chart shows how many grooming appointments were completed each day, helping the business owner understand daily appointment activity.
+
+## Files
+- `Paws and Bubbles.py` - Main Python program containing the menu and program functions.
+- `customers.csv` - Stores customer and pet information.
+- `appointments.csv` - Stores completed grooming service transactions.
+- `revenue_by_service.png` - Bar chart showing revenue by grooming service.
+- `appointments_by_day.png` - Line chart showing appointments by day.
+- `README.md` - Provides project information and instructions for running the program.
+
+## Author
+Megan McCluskey
